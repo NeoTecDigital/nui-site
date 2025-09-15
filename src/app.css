@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&display=swap');
+@import 'prism-themes/themes/prism-one-dark.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    * {
+        @apply border-base-content/20;
+    }
+
+    body {
+        @apply bg-base-100 text-base-content antialiased;
+        font-feature-settings: 'cv01', 'cv02', 'cv03', 'cv04';
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+@layer components {
+    .container {
+        @apply max-w-7xl;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+        @apply w-2;
+    }
+
+    ::-webkit-scrollbar-track {
+        @apply bg-base-200;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply bg-base-content/20 rounded-full;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        @apply bg-base-content/30;
+    }
+
+    /* Animation utilities */
+    .animate-in {
+        animation: animate-in 0.2s ease-in-out;
+    }
+
+    .animate-out {
+        animation: animate-out 0.15s ease-in-out;
+    }
+
+    @keyframes animate-in {
+        from {
+            opacity: 0;
+            transform: translateY(-4px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes animate-out {
+        from {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        to {
+            opacity: 0;
+            transform: translateY(-4px);
+        }
+    }
+
+    /* Code block improvements */
+    pre[class*="language-"] {
+        @apply rounded-lg border bg-base-200/50;
+    }
+}
+
+/* Dark mode specific adjustments */
+[data-theme="dark"] .prism-code,
+[data-theme="dracula"] .prism-code,
+[data-theme="night"] .prism-code,
+[data-theme="halloween"] .prism-code,
+[data-theme="forest"] .prism-code {
+    background: oklch(var(--b2)) !important;
+}
