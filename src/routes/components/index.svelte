@@ -168,7 +168,7 @@
     {#if viewMode === 'grid'}
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {#each filteredComponents as component}
-                <a href="/components/{component.name.toLowerCase().replace(/\s+/g, '-')}" class="card bg-base-100 shadow-sm hover:shadow-md transition-shadow">
+                <a href="#/components/{component.name.toLowerCase().replace(/\s+/g, '-')}" class="card bg-base-100 shadow-sm hover:shadow-md transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center justify-between mb-2">
                             <h3 class="card-title text-lg">{component.name}</h3>
@@ -187,7 +187,7 @@
     {:else}
         <div class="space-y-4">
             {#each filteredComponents as component}
-                <a href="/components/{component.name.toLowerCase().replace(/\s+/g, '-')}" class="card bg-base-100 shadow-sm hover:shadow-md transition-shadow">
+                <a href="#/components/{component.name.toLowerCase().replace(/\s+/g, '-')}" class="card bg-base-100 shadow-sm hover:shadow-md transition-shadow">
                     <div class="card-body">
                         <div class="flex items-center justify-between">
                             <div class="flex-1">

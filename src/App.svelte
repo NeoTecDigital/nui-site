@@ -14,26 +14,31 @@
 
     let currentRoute = '';
 
-    // Simple client-side routing
+    // Simple hash-based client-side routing
     function updateRoute() {
-        currentRoute = window.location.pathname;
+        currentRoute = window.location.hash.slice(1) || '/';
     }
 
     // Initialize theme and routing on mount
     onMount(() => {
         document.documentElement.setAttribute('data-theme', $theme);
+        // Set initial route if none exists
+        if (!window.location.hash) {
+            window.location.hash = '/';
+        }
         updateRoute();
         
-        // Listen for route changes
-        window.addEventListener('popstate', updateRoute);
+        // Listen for hash changes
+        window.addEventListener('hashchange', updateRoute);
         
-        // Handle link clicks
+        // Handle link clicks for internal navigation
         document.addEventListener('click', (e) => {
             const target = e.target as HTMLElement;
             const link = target.closest('a');
-            if (link && link.href && link.href.startsWith(window.location.origin) && !link.target) {
+            if (link && link.href && link.href.includes('#') && !link.target) {
                 e.preventDefault();
-                history.pushState(null, '', link.href);
+                const hash = link.href.split('#')[1];
+                window.location.hash = hash || '/';
                 updateRoute();
             }
         });

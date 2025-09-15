@@ -17,12 +17,12 @@
     }
 
     const navigation = [
-        { name: 'Docs', href: '/docs' },
-        { name: 'Components', href: '/components' },
-        { name: 'Blocks', href: '/blocks' },
-        { name: 'Charts', href: '/charts' },
-        { name: 'Themes', href: '/themes' },
-        { name: 'Colors', href: '/colors' },
+        { name: 'Docs', href: '#/docs' },
+        { name: 'Components', href: '#/components' },
+        { name: 'Blocks', href: '#/blocks' },
+        { name: 'Charts', href: '#/charts' },
+        { name: 'Themes', href: '#/themes' },
+        { name: 'Colors', href: '#/colors' },
     ];
 </script>
 
@@ -30,7 +30,7 @@
     <div class="container mx-auto flex h-16 items-center justify-between px-4">
         <!-- Logo -->
         <div class="flex items-center space-x-2">
-            <a href="/" class="flex items-center space-x-2">
+            <a href="#/" class="flex items-center space-x-2">
                 <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-content font-bold">
                     N
                 </div>
