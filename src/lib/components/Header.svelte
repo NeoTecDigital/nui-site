@@ -1,5 +1,6 @@
 <script lang="ts">
     import { theme, themes } from '$lib/stores/theme.js';
+    import { currentRoute } from '$lib/utils/router.js';
     import { Moon, Sun, Menu, Search, Github } from 'lucide-svelte';
     import { cn } from '$lib/utils/index.js';
 
@@ -17,12 +18,12 @@
     }
 
     const navigation = [
-        { name: 'Docs', href: '#/docs' },
-        { name: 'Components', href: '#/components' },
-        { name: 'Blocks', href: '#/blocks' },
-        { name: 'Charts', href: '#/charts' },
-        { name: 'Themes', href: '#/themes' },
-        { name: 'Colors', href: '#/colors' },
+        { name: 'Docs', href: '/docs' },
+        { name: 'Components', href: '/components' },
+        { name: 'Blocks', href: '/blocks' },
+        { name: 'Charts', href: '/charts' },
+        { name: 'Themes', href: '/themes' },
+        { name: 'Colors', href: '/colors' },
     ];
 </script>
 
@@ -30,7 +31,7 @@
     <div class="container mx-auto flex h-16 items-center justify-between px-4">
         <!-- Logo -->
         <div class="flex items-center space-x-2">
-            <a href="#/" class="flex items-center space-x-2">
+            <a href="/" class="flex items-center space-x-2">
                 <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-content font-bold">
                     N
                 </div>
@@ -43,7 +44,12 @@
             {#each navigation as item}
                 <a 
                     href={item.href} 
-                    class="text-sm font-medium transition-colors hover:text-primary"
+                    class={cn(
+                        "text-sm font-medium transition-colors hover:text-primary",
+                        $currentRoute === item.href 
+                            ? "text-primary border-b-2 border-primary" 
+                            : "text-base-content/70"
+                    )}
                 >
                     {item.name}
                 </a>
@@ -108,7 +114,12 @@
                     {#each navigation as item}
                         <a 
                             href={item.href} 
-                            class="text-sm font-medium transition-colors hover:text-primary py-2"
+                            class={cn(
+                                "text-sm font-medium transition-colors hover:text-primary py-2",
+                                $currentRoute === item.href 
+                                    ? "text-primary border-l-2 border-primary pl-2" 
+                                    : "text-base-content/70"
+                            )}
                             on:click={() => isMenuOpen = false}
                         >
                             {item.name}

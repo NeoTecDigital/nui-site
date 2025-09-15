@@ -83,11 +83,11 @@
             </p>
             
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-                <a href="#/docs" class="btn btn-primary btn-lg">
+                <a href="/docs" class="btn btn-primary btn-lg">
                     Get Started
                     <ArrowRight class="ml-2 h-5 w-5" />
                 </a>
-                <a href="#/components" class="btn btn-outline btn-lg">
+                <a href="/components" class="btn btn-outline btn-lg">
                     View Components
                 </a>
             </div>
@@ -218,7 +218,7 @@
             </p>
             
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="#/docs" class="btn btn-primary btn-lg">
+                <a href="/docs" class="btn btn-primary btn-lg">
                     Read the Docs
                     <ArrowRight class="ml-2 h-5 w-5" />
                 </a>

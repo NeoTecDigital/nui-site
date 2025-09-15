@@ -200,11 +200,11 @@ module.exports = {
                     Explore our component library and start building beautiful interfaces today.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="#/components" class="btn btn-primary">
+                    <a href="/components" class="btn btn-primary">
                         Browse Components
                         <ArrowRight class="ml-2 h-4 w-4" />
                     </a>
-                    <a href="#/blocks" class="btn btn-outline">
+                    <a href="/blocks" class="btn btn-outline">
                         View Blocks
                     </a>
                 </div>

@@ -41,8 +41,14 @@ export default defineConfig({
             }
         }
     },
+    preview: {
+        // Configure preview server for SPA routing
+        historyApiFallback: true
+    },
     server: { 
         port: 1337,
-        host: true 
+        host: true,
+        // Configure for SPA routing
+        historyApiFallback: true
     },
 })

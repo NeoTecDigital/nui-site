@@ -20,7 +20,6 @@
         "tailwind-merge": "^2.5.4"
     },
     "devDependencies": {
-        "@roxi/routify": "3.0.0-next.142",
         "@sveltejs/vite-plugin-svelte": "^2.5.0",
         "@tsconfig/svelte": "^5.0.4",
         "@types/node": "^22.15.30",

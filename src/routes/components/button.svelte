@@ -106,7 +106,7 @@
 <div class="container mx-auto px-4 py-8">
     <!-- Breadcrumb -->
     <div class="flex items-center space-x-2 text-sm text-base-content/70 mb-8">
-        <a href="#/components" class="hover:text-primary flex items-center">
+        <a href="/components" class="hover:text-primary flex items-center">
             <ArrowLeft class="w-4 h-4 mr-1" />
             Components
         </a>

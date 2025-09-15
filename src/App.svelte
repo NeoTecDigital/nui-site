@@ -10,66 +10,27 @@
     import ThemesPage from './routes/themes/index.svelte';
     import ColorsPage from './routes/colors/index.svelte';
     import { theme } from '$lib/stores/theme.js';
+    import { currentRoute, registerRoute, getRouteComponent, initRouter } from '$lib/utils/router.js';
     import { onMount } from 'svelte';
 
-    let currentRoute = '';
-
-    // Simple hash-based client-side routing
-    function updateRoute() {
-        currentRoute = window.location.hash.slice(1) || '/';
-    }
+    // Register all routes
+    registerRoute('/', HomePage, 'NUI - DaisyUI-powered Svelte Components');
+    registerRoute('/docs', DocsPage, 'Documentation - NUI');
+    registerRoute('/components', ComponentsPage, 'Components - NUI');
+    registerRoute('/components/button', ButtonPage, 'Button Component - NUI');
+    registerRoute('/blocks', BlocksPage, 'Blocks - NUI');
+    registerRoute('/charts', ChartsPage, 'Charts - NUI');
+    registerRoute('/themes', ThemesPage, 'Themes - NUI');
+    registerRoute('/colors', ColorsPage, 'Colors - NUI');
 
     // Initialize theme and routing on mount
     onMount(() => {
         document.documentElement.setAttribute('data-theme', $theme);
-        // Set initial route if none exists
-        if (!window.location.hash) {
-            window.location.hash = '/';
-        }
-        updateRoute();
-        
-        // Listen for hash changes
-        window.addEventListener('hashchange', updateRoute);
-        
-        // Handle link clicks for internal navigation
-        document.addEventListener('click', (e) => {
-            const target = e.target as HTMLElement;
-            const link = target.closest('a');
-            if (link && link.href && link.href.includes('#') && !link.target) {
-                e.preventDefault();
-                const hash = link.href.split('#')[1];
-                window.location.hash = hash || '/';
-                updateRoute();
-            }
-        });
+        initRouter();
     });
 
-    // Get component for current route
-    function getRouteComponent() {
-        switch (currentRoute) {
-            case '/':
-            case '':
-                return HomePage;
-            case '/docs':
-                return DocsPage;
-            case '/components':
-                return ComponentsPage;
-            case '/components/button':
-                return ButtonPage;
-            case '/blocks':
-                return BlocksPage;
-            case '/charts':
-                return ChartsPage;
-            case '/themes':
-                return ThemesPage;
-            case '/colors':
-                return ColorsPage;
-            default:
-                return HomePage;
-        }
-    }
-
-    $: RouteComponent = getRouteComponent();
+    // Get current route component
+    $: RouteComponent = getRouteComponent($currentRoute) || HomePage;
 </script>
 
 <div class="min-h-screen flex flex-col" data-theme={$theme}>
