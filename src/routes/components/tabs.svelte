@@ -11,7 +11,7 @@
     const installCommand = 'npx @nui/cli add tabs';
 
     const basicUsage = `<script>
-  import { Tabs } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
   let activeTab = 0;
 <\/script>
 

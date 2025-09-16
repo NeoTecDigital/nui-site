@@ -12,7 +12,7 @@
     const installCommand = 'npx @nui/cli add navigation-menu';
 
     const basicUsage = `<script>
-  import { NavigationMenu } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
 <\/script>
 
 <ul class="menu menu-horizontal bg-base-200">

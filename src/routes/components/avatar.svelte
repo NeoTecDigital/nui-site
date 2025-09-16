@@ -6,7 +6,7 @@
     const installCommand = 'npx @nui/cli add avatar';
 
     const basicUsage = `<script>
-  import { Avatar } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
 <\/script>
 
 <div class="avatar">

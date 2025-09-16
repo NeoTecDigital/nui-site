@@ -6,7 +6,7 @@
     const installCommand = 'npx @nui/cli add calendar';
 
     const basicUsage = `<script>
-  import { Calendar } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
   
   let selectedDate = new Date();
 <\/script>

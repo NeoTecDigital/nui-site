@@ -6,7 +6,7 @@
     const installCommand = 'npx @nui/cli add popover';
 
     const basicUsage = `<script>
-  import { Popover } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
 <\/script>
 
 <!-- Basic Popover -->

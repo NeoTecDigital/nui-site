@@ -6,7 +6,7 @@
     const installCommand = 'npx @nui/cli add alert';
 
     const basicUsage = `<script>
-  import { Alert } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
 <\/script>
 
 <Alert>This is a basic alert message</Alert>`;

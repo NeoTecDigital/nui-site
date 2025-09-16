@@ -6,7 +6,7 @@
     const installCommand = 'npx @nui/cli add checkbox';
 
     const basicUsage = `<script>
-  import { Checkbox } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
 <\/script>
 
 <Checkbox />`;

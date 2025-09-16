@@ -6,7 +6,7 @@
     const installCommand = 'npx @nui/cli add command';
 
     const basicUsage = `<script>
-  import { Command } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
   let showCommand = false;
   let searchQuery = '';
 <\/script>

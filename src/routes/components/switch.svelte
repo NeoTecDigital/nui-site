@@ -22,7 +22,7 @@
     const installCommand = 'npx @nui/cli add switch';
 
     const basicUsage = `<script>
-  import { Switch } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
   
   let checked = false;
 <\/script>

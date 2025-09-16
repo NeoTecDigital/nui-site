@@ -6,7 +6,7 @@
     const installCommand = 'npx @nui/cli add pagination';
 
     const basicUsage = `<script>
-  import { Pagination } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
 <\/script>
 
 <div class="join">

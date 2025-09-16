@@ -6,7 +6,7 @@
     const installCommand = 'npx @nui/cli add radio-group';
 
     const basicUsage = `<script>
-  import { RadioGroup } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
 <\/script>
 
 <RadioGroup>

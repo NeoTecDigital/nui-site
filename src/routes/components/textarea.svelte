@@ -6,7 +6,7 @@
     const installCommand = 'npx @nui/cli add textarea';
 
     const basicUsage = `<script>
-  import { Textarea } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
 <\/script>
 
 <Textarea placeholder="Enter your message..." />`;

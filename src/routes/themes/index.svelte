@@ -54,7 +54,7 @@ module.exports = {
 }`;
 
     const themeUsageCode = `<script>
-  import { theme } from '@nui/core/stores';
+  // No additional imports needed - theme store already imported above
   
   // Set theme programmatically
   theme.set('dark');

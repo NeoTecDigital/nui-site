@@ -7,7 +7,7 @@
     const installCommand = 'npx @nui/cli add slider';
 
     const basicUsage = `<script>
-  import { Slider } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
 <\/script>
 
 <Slider value={50} />`;

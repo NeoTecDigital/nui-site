@@ -6,7 +6,7 @@
     const installCommand = 'npx @nui/cli add data-table';
 
     const basicUsage = `<script>
-  import { DataTable } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
   
   let data = [
     { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Admin' },

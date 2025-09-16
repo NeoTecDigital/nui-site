@@ -6,7 +6,7 @@
     const installCommand = 'npx @nui/cli add card';
 
     const basicUsage = `<script>
-  import { Card } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
 <\/script>
 
 <div class="card bg-base-100 shadow-xl">

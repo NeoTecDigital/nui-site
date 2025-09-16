@@ -6,7 +6,7 @@
     const installCommand = 'npx @nui/cli add button';
 
     const basicUsage = `<script>
-  import { Button } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
 <\/script>
 
 <Button>Click me</Button>`;

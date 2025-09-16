@@ -34,7 +34,7 @@
     const installCommand = 'npx @nui/cli add context-menu';
 
     const basicUsage = `<script>
-  import { ContextMenu } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
   
   let contextMenuVisible = false;
   let contextMenuX = 0;

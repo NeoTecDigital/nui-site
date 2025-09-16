@@ -17,6 +17,13 @@ module.exports = {
                     800: '#075985',
                     900: '#0c4a6e',
                 },
+                chart: {
+                    1: 'var(--chart-1)',
+                    2: 'var(--chart-2)',
+                    3: 'var(--chart-3)',
+                    4: 'var(--chart-4)',
+                    5: 'var(--chart-5)',
+                },
             },
             fontFamily: {
                 sans: ['Inter', 'system-ui', 'sans-serif'],

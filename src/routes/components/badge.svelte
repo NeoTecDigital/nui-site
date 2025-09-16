@@ -6,7 +6,7 @@
     const installCommand = 'npx @nui/cli add badge';
 
     const basicUsage = `<script>
-  import { Badge } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
 <\/script>
 
 <span class="badge">Default</span>`;

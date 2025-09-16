@@ -6,7 +6,7 @@
     const installCommand = 'npx @nui/cli add sheet';
 
     const basicUsage = `<script>
-  import { Sheet } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
 <\/script>
 
 <!-- Button to open sheet -->

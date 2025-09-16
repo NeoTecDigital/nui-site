@@ -7,7 +7,7 @@
     const installCommand = 'npx @nui/cli add progress';
 
     const basicUsage = `<script>
-  import { Progress } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
 <\/script>
 
 <Progress value={60} />`;

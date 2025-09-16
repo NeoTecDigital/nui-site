@@ -31,7 +31,7 @@ module.exports = {
             title: 'Import and Use',
             description: 'Start using NUI components in your Svelte app',
             code: `<script>
-  import { Button, Card, Input } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
 <\/script>
 
 <Card>

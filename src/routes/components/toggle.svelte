@@ -31,7 +31,7 @@
     const installCommand = 'npx @nui/cli add toggle';
 
     const basicUsage = `<script>
-  import { Toggle } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
   
   let pressed = false;
 <\/script>

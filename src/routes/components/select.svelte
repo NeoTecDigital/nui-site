@@ -6,7 +6,7 @@
     const installCommand = 'npx @nui/cli add select';
 
     const basicUsage = `<script>
-  import { Select } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
 <\/script>
 
 <select class="select select-bordered">

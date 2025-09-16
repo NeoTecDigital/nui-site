@@ -6,7 +6,7 @@
     const installCommand = 'npx @nui/cli add breadcrumb';
 
     const basicUsage = `<script>
-  import { Breadcrumb } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
 <\/script>
 
 <div class="breadcrumbs text-sm">

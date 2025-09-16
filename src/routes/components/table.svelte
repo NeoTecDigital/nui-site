@@ -6,7 +6,7 @@
     const installCommand = 'npx @nui/cli add table';
 
     const basicUsage = `<script>
-  import { Table } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
 <\/script>
 
 <table class="table">

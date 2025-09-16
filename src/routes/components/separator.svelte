@@ -6,7 +6,7 @@
     const installCommand = 'npx @nui/cli add separator';
 
     const basicUsage = `<script>
-  import { Separator } from '@nui/core';
+  // Using DaisyUI divider classes - no additional imports needed
 <\/script>
 
 <div>Content above</div>

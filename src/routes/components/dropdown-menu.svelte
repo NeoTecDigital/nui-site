@@ -6,7 +6,7 @@
     const installCommand = 'npx @nui/cli add dropdown-menu';
 
     const basicUsage = `<script>
-  import { DropdownMenu } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
 <\/script>
 
 <div class="dropdown">

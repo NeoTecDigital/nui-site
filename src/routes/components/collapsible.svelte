@@ -6,7 +6,7 @@
     const installCommand = 'npx @nui/cli add collapsible';
 
     const basicUsage = `<script>
-  import { Collapsible } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
 <\/script>
 
 <div class="collapse bg-base-200">

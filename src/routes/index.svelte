@@ -38,7 +38,7 @@
     ];
 
     const quickStartCode = `<script>
-  import { Button, Card, Input } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
 <\/script>
 
 <Card>

@@ -15,7 +15,7 @@
     const installCommand = 'npx @nui/cli add menubar';
 
     const basicUsage = `<script>
-  import { Menubar } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
 <\/script>
 
 <div class="navbar bg-base-200">

@@ -6,7 +6,7 @@
     const installCommand = 'npx @nui/cli add input';
 
     const basicUsage = `<script>
-  import { Input } from '@nui/core';
+  // Component imports from @nui/core (using DaisyUI classes)
 <\/script>
 
 <Input placeholder="Enter text" />`;
