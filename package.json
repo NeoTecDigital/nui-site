@@ -12,17 +12,18 @@
         "lint": "prettier --check ."
     },
     "dependencies": {
+        "clsx": "^2.1.1",
         "daisyui": "^4.12.13",
+        "lucide-svelte": "^0.468.0",
         "prism-themes": "^1.9.0",
         "prismjs": "^1.29.0",
-        "lucide-svelte": "^0.468.0",
-        "clsx": "^2.1.1",
         "tailwind-merge": "^2.5.4"
     },
     "devDependencies": {
         "@sveltejs/vite-plugin-svelte": "^2.5.0",
         "@tsconfig/svelte": "^5.0.4",
         "@types/node": "^22.15.30",
+        "@types/prismjs": "^1.26.5",
         "autoprefixer": "^10.4.20",
         "postcss": "^8.4.49",
         "prettier": "^3.5.3",

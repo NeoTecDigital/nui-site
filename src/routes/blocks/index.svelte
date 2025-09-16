@@ -1,196 +1,238 @@
 <script lang="ts">
-    import { Search, Eye, Code, Copy, Star, Clock, User, Mail, Phone } from 'lucide-svelte';
+    import { 
+        Search, Eye, Code, Copy, Star, Clock, User, Mail, Phone, 
+        ExternalLink, RefreshCw, Monitor, Tablet, Smartphone,
+        BarChart3, PieChart, TrendingUp, ShoppingCart, CreditCard,
+        Settings, Lock, FileText, MessageSquare, Calendar
+    } from 'lucide-svelte';
     import CodeBlock from '$lib/components/CodeBlock.svelte';
     import { cn } from '$lib/utils/index.js';
+    
+    // Import block components
+    import Dashboard01 from './dashboard-01.svelte';
+    import Dashboard02 from './dashboard-02.svelte';
+    import Dashboard03 from './dashboard-03.svelte';
+    import Dashboard04 from './dashboard-04.svelte';
+    import Sidebar01 from './sidebar-01.svelte';
+    import Sidebar02 from './sidebar-02.svelte';
+    import Sidebar04 from './sidebar-04.svelte';
+    import Sidebar05 from './sidebar-05.svelte';
+    import Login01 from './login-01.svelte';
+    import Login02 from './login-02.svelte';
+    import Login03 from './login-03.svelte';
+    import Hero01 from './hero-01.svelte';
+    import Features01 from './features-01.svelte';
+    import Pricing01 from './pricing-01.svelte';
+    import Testimonials01 from './testimonials-01.svelte';
+    import Product01 from './product-01.svelte';
+    import Checkout01 from './checkout-01.svelte';
+    import Cart01 from './cart-01.svelte';
 
     let searchQuery = '';
-    let selectedCategory = 'all';
+    let selectedCategory = 'featured';
     let viewMode = 'preview';
+    let deviceView = 'desktop';
+    let copiedCode = '';
 
     const categories = [
-        { id: 'all', name: 'All Blocks', count: 24 },
-        { id: 'layout', name: 'Layout', count: 6 },
-        { id: 'marketing', name: 'Marketing', count: 5 },
-        { id: 'ecommerce', name: 'E-commerce', count: 4 },
+        { id: 'featured', name: 'Featured', count: 8 },
+        { id: 'sidebar', name: 'Sidebar', count: 4 },
+        { id: 'login', name: 'Login', count: 3 },
         { id: 'dashboard', name: 'Dashboard', count: 4 },
-        { id: 'auth', name: 'Authentication', count: 3 },
-        { id: 'content', name: 'Content', count: 2 }
+        { id: 'marketing', name: 'Marketing', count: 4 },
+        { id: 'ecommerce', name: 'E-commerce', count: 3 }
     ];
 
     const blocks = [
-        // Layout Blocks
+        // Featured Blocks
         {
+            id: 'dashboard-01',
+            name: 'Dashboard with Sidebar',
+            category: 'featured',
+            description: 'A complete dashboard with sidebar, charts and data table',
+            component: Dashboard01,
+            link: '/blocks/dashboard-01',
+            code: `npx @nui/cli add dashboard-01`
+        },
+        {
+            id: 'sidebar-01',
+            name: 'Simple Sidebar',
+            category: 'featured',
+            description: 'A basic sidebar layout with navigation',
+            component: Sidebar01,
+            link: '/blocks/sidebar-01',
+            code: `npx @nui/cli add sidebar-01`
+        },
+        {
+            id: 'login-03',
+            name: 'Login with Background',
+            category: 'featured',
+            description: 'A login page with a background image',
+            component: Login03,
+            link: '/blocks/login-03', 
+            code: `npx @nui/cli add login-03`
+        },
+        {
+            id: 'hero-01',
             name: 'Hero Section',
-            category: 'layout',
-            description: 'Eye-catching hero section with call-to-action',
-            preview: 'hero-preview',
-            code: `<section class="hero min-h-screen bg-gradient-to-r from-primary to-secondary">
-  <div class="hero-content text-center text-primary-content">
-    <div class="max-w-md">
-      <h1 class="mb-5 text-5xl font-bold">Hello there</h1>
-      <p class="mb-5">Beautiful hero section with gradient background</p>
-      <button class="btn btn-accent">Get Started</button>
-    </div>
-  </div>
-</section>`
-        },
-        {
-            name: 'Feature Grid',
-            category: 'layout',
-            description: 'Grid layout showcasing key features',
-            preview: 'feature-grid-preview',
-            code: `<div class="grid md:grid-cols-3 gap-8">
-  <div class="card bg-base-100 shadow-sm">
-    <div class="card-body items-center text-center">
-      <Star class="w-12 h-12 text-primary mb-4" />
-      <h3 class="card-title">Feature One</h3>
-      <p>Description of your amazing feature</p>
-    </div>
-  </div>
-  <!-- Repeat for other features -->
-</div>`
-        },
-
-        // Marketing Blocks
-        {
-            name: 'Pricing Cards',
-            category: 'marketing',
-            description: 'Professional pricing table with featured plan',
-            preview: 'pricing-preview',
-            code: `<div class="grid md:grid-cols-3 gap-6">
-  <div class="card bg-base-100 shadow-lg">
-    <div class="card-body">
-      <h3 class="card-title">Basic</h3>
-      <div class="text-4xl font-bold">$9<span class="text-lg font-normal">/mo</span></div>
-      <ul class="space-y-2 mt-4">
-        <li>✓ 5 Projects</li>
-        <li>✓ Basic Support</li>
-      </ul>
-      <button class="btn btn-outline mt-6">Choose Plan</button>
-    </div>
-  </div>
-  <!-- More plans... -->
-</div>`
-        },
-        {
-            name: 'Testimonials',
-            category: 'marketing',
-            description: 'Customer testimonials with avatars and ratings',
-            preview: 'testimonials-preview',
-            code: `<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-  <div class="card bg-base-100 shadow-sm">
-    <div class="card-body">
-      <div class="flex items-center space-x-4 mb-4">
-        <div class="avatar">
-          <div class="w-12 rounded-full">
-            <img src="/avatar1.jpg" alt="Customer" />
-          </div>
-        </div>
-        <div>
-          <h4 class="font-semibold">John Doe</h4>
-          <div class="rating rating-sm">
-            <input type="radio" class="mask mask-star-2 bg-orange-400" checked />
-          </div>
-        </div>
-      </div>
-      <p class="text-sm">"Excellent product! Highly recommended."</p>
-    </div>
-  </div>
-</div>`
+            category: 'featured',
+            description: 'Landing page hero section with CTA',
+            component: Hero01,
+            link: '/blocks/hero-01',
+            code: `npx @nui/cli add hero-01`
         },
 
         // Dashboard Blocks
         {
-            name: 'Stats Cards',
+            id: 'dashboard-02',
+            name: 'Analytics Dashboard',
             category: 'dashboard',
-            description: 'Dashboard statistics cards with icons',
-            preview: 'stats-preview',
-            code: `<div class="stats stats-vertical lg:stats-horizontal shadow">
-  <div class="stat">
-    <div class="stat-figure text-primary">
-      <User class="w-8 h-8" />
-    </div>
-    <div class="stat-title">Total Users</div>
-    <div class="stat-value text-primary">89,400</div>
-    <div class="stat-desc">21% more than last month</div>
-  </div>
-  <!-- More stats... -->
-</div>`
+            description: 'Dashboard with analytics widgets',
+            component: Dashboard02,
+            link: '/blocks/dashboard-02',
+            code: `npx @nui/cli add dashboard-02`
+        },
+        {
+            id: 'dashboard-03',
+            name: 'E-commerce Dashboard',
+            category: 'dashboard',
+            description: 'Sales and orders dashboard',
+            component: Dashboard03,
+            link: '/blocks/dashboard-03', 
+            code: `npx @nui/cli add dashboard-03`
+        },
+        {
+            id: 'dashboard-04',
+            name: 'Project Dashboard',
+            category: 'dashboard',
+            description: 'Project management dashboard',
+            component: Dashboard04,
+            link: '/blocks/dashboard-04',
+            code: `npx @nui/cli add dashboard-04`
         },
 
-        // Authentication Blocks
+        // Sidebar Blocks
         {
-            name: 'Login Form',
-            category: 'auth',
-            description: 'Clean login form with social login options',
-            preview: 'login-preview',
-            code: `<div class="card bg-base-100 shadow-xl w-96">
-  <div class="card-body">
-    <h2 class="card-title justify-center">Login</h2>
-    <div class="form-control">
-      <label class="label">
-        <span class="label-text">Email</span>
-      </label>
-      <input type="email" class="input input-bordered" />
-    </div>
-    <div class="form-control">
-      <label class="label">
-        <span class="label-text">Password</span>
-      </label>
-      <input type="password" class="input input-bordered" />
-    </div>
-    <div class="form-control mt-6">
-      <button class="btn btn-primary">Login</button>
-    </div>
-  </div>
-</div>`
+            id: 'sidebar-02',
+            name: 'Sidebar with Header',
+            category: 'sidebar',
+            description: 'Sidebar with branded header',
+            component: Sidebar02,
+            link: '/blocks/sidebar-02',
+            code: `npx @nui/cli add sidebar-02`
+        },
+        {
+            id: 'sidebar-04',
+            name: 'Sidebar with Footer',
+            category: 'sidebar',
+            description: 'Sidebar with user profile footer',
+            component: Sidebar04,
+            link: '/blocks/sidebar-04', 
+            code: `npx @nui/cli add sidebar-04`
+        },
+        {
+            id: 'sidebar-05',
+            name: 'Sidebar with Projects',
+            category: 'sidebar',
+            description: 'Sidebar with project navigation',
+            component: Sidebar05,
+            link: '/blocks/sidebar-05',
+            code: `npx @nui/cli add sidebar-05`
+        },
+
+        // Login Blocks  
+        {
+            id: 'login-01',
+            name: 'Simple Login',
+            category: 'login',
+            description: 'A simple login form',
+            component: Login01,
+            link: '/blocks/login-01',
+            code: `npx @nui/cli add login-01`
+        },
+        {
+            id: 'login-02',
+            name: 'Login with Image',
+            category: 'login',
+            description: 'Login form with side image',
+            component: Login02,
+            link: '/blocks/login-02',
+            code: `npx @nui/cli add login-02`
+        },
+
+        // Marketing Blocks
+        {
+            id: 'features-01',
+            name: 'Feature Grid',
+            category: 'marketing',
+            description: 'Features showcase grid',
+            component: Features01,
+            link: '/blocks/features-01',
+            code: `npx @nui/cli add features-01`
+        },
+        {
+            id: 'pricing-01',
+            name: 'Pricing Section',
+            category: 'marketing',
+            description: 'Pricing plans section',
+            component: Pricing01,
+            link: '/blocks/pricing-01',
+            code: `npx @nui/cli add pricing-01`
+        },
+        {
+            id: 'testimonials-01',
+            name: 'Testimonials',
+            category: 'marketing',
+            description: 'Customer testimonials section',
+            component: Testimonials01,
+            link: '/blocks/testimonials-01',
+            code: `npx @nui/cli add testimonials-01`
+        },
+
+        // E-commerce Blocks
+        {
+            id: 'product-01',
+            name: 'Product Details',
+            category: 'ecommerce',
+            description: 'Product page layout',
+            component: Product01,
+            link: '/blocks/product-01',
+            code: `npx @nui/cli add product-01`
+        },
+        {
+            id: 'checkout-01',
+            name: 'Checkout Form',
+            category: 'ecommerce',
+            description: 'Checkout process form',
+            component: Checkout01,
+            link: '/blocks/checkout-01',
+            code: `npx @nui/cli add checkout-01`
+        },
+        {
+            id: 'cart-01',
+            name: 'Shopping Cart',
+            category: 'ecommerce',
+            description: 'Shopping cart component',
+            component: Cart01,
+            link: '/blocks/cart-01',
+            code: `npx @nui/cli add cart-01`
         }
     ];
+
+    // Copy to clipboard function
+    function copyToClipboard(text: string, blockId: string) {
+        navigator.clipboard.writeText(text).then(() => {
+            copiedCode = blockId;
+            setTimeout(() => copiedCode = '', 2000);
+        });
+    }
 
     $: filteredBlocks = blocks.filter(block => {
         const matchesSearch = block.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                             block.description.toLowerCase().includes(searchQuery.toLowerCase());
-        const matchesCategory = selectedCategory === 'all' || block.category === selectedCategory;
+        const matchesCategory = selectedCategory === 'featured' || block.category === selectedCategory;
         return matchesSearch && matchesCategory;
     });
-
-    function renderPreview(previewType: string) {
-        switch (previewType) {
-            case 'hero-preview':
-                return `<div class="hero min-h-48 bg-gradient-to-r from-primary to-secondary rounded-lg">
-                    <div class="hero-content text-center text-primary-content">
-                        <div>
-                            <h1 class="text-3xl font-bold mb-2">Hello there</h1>
-                            <p class="mb-4">Beautiful hero section</p>
-                            <button class="btn btn-accent btn-sm">Get Started</button>
-                        </div>
-                    </div>
-                </div>`;
-            case 'feature-grid-preview':
-                return `<div class="grid grid-cols-3 gap-4">
-                    <div class="card bg-base-100 shadow-sm">
-                        <div class="card-body p-4 items-center text-center">
-                            <Star class="w-8 h-8 text-primary mb-2" />
-                            <h3 class="font-semibold text-sm">Feature</h3>
-                        </div>
-                    </div>
-                    <div class="card bg-base-100 shadow-sm">
-                        <div class="card-body p-4 items-center text-center">
-                            <Clock class="w-8 h-8 text-primary mb-2" />
-                            <h3 class="font-semibold text-sm">Feature</h3>
-                        </div>
-                    </div>
-                    <div class="card bg-base-100 shadow-sm">
-                        <div class="card-body p-4 items-center text-center">
-                            <User class="w-8 h-8 text-primary mb-2" />
-                            <h3 class="font-semibold text-sm">Feature</h3>
-                        </div>
-                    </div>
-                </div>`;
-            default:
-                return '<div class="bg-base-200 rounded p-8 text-center text-base-content/60">Preview</div>';
-        }
-    }
 </script>
 
 <svelte:head>
@@ -200,226 +242,138 @@
 
 <div class="container mx-auto px-4 py-8">
     <!-- Header -->
-    <div class="mb-8">
-        <h1 class="text-4xl font-bold mb-4">Blocks</h1>
-        <p class="text-xl text-base-content/70">
-            Pre-built component compositions and UI patterns to accelerate your development.
+    <div class="max-w-6xl mx-auto mb-12">
+        <h1 class="text-4xl font-bold mb-4">Building Blocks for the Web</h1>
+        <p class="text-xl text-base-content/70 mb-8">
+            Clean, modern building blocks. Works with all Svelte projects. Copy and paste into your apps. Open Source. Free forever.
         </p>
+        <a href="#blocks" class="btn btn-primary">Browse Blocks</a>
     </div>
 
-    <!-- Filters and Search -->
-    <div class="mb-8">
-        <div class="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
-            <!-- Search -->
-            <div class="relative flex-1 max-w-md">
-                <Search class="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-base-content/60" />
-                <input
-                    type="text"
-                    placeholder="Search blocks..."
-                    bind:value={searchQuery}
-                    class="input input-bordered w-full pl-10"
-                />
-            </div>
-
-            <!-- View Mode Toggle -->
-            <div class="flex items-center space-x-2">
-                <span class="text-sm text-base-content/70">View:</span>
-                <div class="btn-group">
-                    <button
-                        class={cn('btn btn-sm', viewMode === 'preview' ? 'btn-active' : 'btn-ghost')}
-                        on:click={() => viewMode = 'preview'}
-                    >
-                        <Eye class="h-4 w-4" />
-                        Preview
-                    </button>
-                    <button
-                        class={cn('btn btn-sm', viewMode === 'code' ? 'btn-active' : 'btn-ghost')}
-                        on:click={() => viewMode = 'code'}
-                    >
-                        <Code class="h-4 w-4" />
-                        Code
-                    </button>
-                </div>
-            </div>
+    <!-- Categories Navigation -->
+    <div class="max-w-6xl mx-auto mb-8" id="blocks">
+        <div class="flex flex-wrap gap-2 mb-4">
+            {#each categories as category}
+                <button
+                    class={cn(
+                        'btn btn-sm',
+                        selectedCategory === category.id ? 'btn-primary' : 'btn-ghost'
+                    )}
+                    on:click={() => selectedCategory = category.id}
+                >
+                    {category.name}
+                </button>
+            {/each}
         </div>
-
-        <!-- Category Filter -->
-        <div class="mt-4">
-            <div class="flex flex-wrap gap-2">
-                {#each categories as category}
-                    <button
-                        class={cn(
-                            'btn btn-sm',
-                            selectedCategory === category.id ? 'btn-primary' : 'btn-ghost'
-                        )}
-                        on:click={() => selectedCategory = category.id}
-                    >
-                        {category.name}
-                        <span class="badge badge-sm ml-2">{category.count}</span>
-                    </button>
-                {/each}
-            </div>
+        <div class="text-sm text-base-content/70">
+            Showing {filteredBlocks.length} block{filteredBlocks.length === 1 ? '' : 's'}
+            {selectedCategory !== 'featured' ? `in ${categories.find(c => c.id === selectedCategory)?.name}` : ''}
         </div>
     </div>
 
-    <!-- Results Count -->
-    <div class="mb-6">
-        <p class="text-sm text-base-content/70">
-            Showing {filteredBlocks.length} of {blocks.length} blocks
-        </p>
-    </div>
-
-    <!-- Blocks Grid -->
-    <div class="grid md:grid-cols-2 gap-8">
-        {#each filteredBlocks as block}
-            <div class="card bg-base-100 shadow-sm border">
-                <div class="card-body">
-                    <!-- Header -->
-                    <div class="flex items-center justify-between mb-4">
-                        <div>
-                            <h3 class="card-title">{block.name}</h3>
+    <!-- Blocks Showcase -->
+    <div class="max-w-7xl mx-auto space-y-16">
+        {#each filteredBlocks.slice(0, 8) as block}
+            <div class="bg-base-100 rounded-lg border">
+                <!-- Block Header -->
+                <div class="p-6 border-b">
+                    <div class="flex items-center justify-between">
+                        <!-- Block Info -->
+                        <div class="flex items-center space-x-4">
+                            <div class="flex items-center space-x-2">
+                                <h3 class="text-lg font-semibold">{block.name}</h3>
+                                <span class="badge badge-secondary badge-sm">{block.category}</span>
+                            </div>
+                            <div class="h-4 w-px bg-border"></div>
                             <p class="text-sm text-base-content/70">{block.description}</p>
                         </div>
+
+                        <!-- Controls -->
                         <div class="flex items-center space-x-2">
-                            <span class="badge badge-outline badge-sm">{block.category}</span>
-                            <button class="btn btn-ghost btn-sm btn-square" title="Copy code">
-                                <Copy class="w-4 h-4" />
-                            </button>
+                            <!-- Device Toggle -->
+                            <div class="flex items-center space-x-1 bg-base-200 rounded-lg p-1">
+                                <button 
+                                    class={cn('btn btn-xs', deviceView === 'desktop' ? 'btn-active' : 'btn-ghost')}
+                                    on:click={() => deviceView = 'desktop'}
+                                    title="Desktop View"
+                                >
+                                    <Monitor class="w-3 h-3" />
+                                </button>
+                                <button 
+                                    class={cn('btn btn-xs', deviceView === 'tablet' ? 'btn-active' : 'btn-ghost')}
+                                    on:click={() => deviceView = 'tablet'}
+                                    title="Tablet View"
+                                >
+                                    <Tablet class="w-3 h-3" />
+                                </button>
+                                <button 
+                                    class={cn('btn btn-xs', deviceView === 'mobile' ? 'btn-active' : 'btn-ghost')}
+                                    on:click={() => deviceView = 'mobile'}
+                                    title="Mobile View"
+                                >
+                                    <Smartphone class="w-3 h-3" />
+                                </button>
+                            </div>
+                            
+                            <div class="h-4 w-px bg-border"></div>
+                            
+                            <a href={block.link} class="btn btn-ghost btn-sm">
+                                <ExternalLink class="w-4 h-4 mr-2" />
+                                Open Full Screen
+                            </a>
                         </div>
                     </div>
+                    
+                    <div class="mt-4 flex items-center space-x-2">
+                        <button 
+                            class={cn('btn btn-sm', copiedCode === block.id ? 'btn-success' : 'btn-primary')}
+                            on:click={() => copyToClipboard(block.code, block.id)}
+                        >
+                            <Copy class="w-4 h-4 mr-2" />
+                            {copiedCode === block.id ? 'Copied!' : 'Copy Install Command'}
+                        </button>
+                        <code class="text-sm bg-base-200 px-2 py-1 rounded">{block.code}</code>
+                    </div>
+                </div>
 
-                    <!-- Content -->
-                    {#if viewMode === 'preview'}
-                        <!-- Preview -->
-                        <div class="border rounded-lg p-4 bg-base-50 min-h-48 flex items-center justify-center">
-                            {#if block.preview === 'hero-preview'}
-                                <div class="w-full">
-                                    <div class="hero min-h-32 bg-gradient-to-r from-primary to-secondary rounded-lg">
-                                        <div class="hero-content text-center text-primary-content">
-                                            <div>
-                                                <h1 class="text-2xl font-bold mb-2">Hello there</h1>
-                                                <p class="mb-4 text-sm">Beautiful hero section</p>
-                                                <button class="btn btn-accent btn-sm">Get Started</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            {:else if block.preview === 'feature-grid-preview'}
-                                <div class="w-full">
-                                    <div class="grid grid-cols-3 gap-3">
-                                        <div class="card bg-base-100 shadow-sm">
-                                            <div class="card-body p-3 items-center text-center">
-                                                <Star class="w-6 h-6 text-primary mb-2" />
-                                                <h3 class="font-semibold text-xs">Feature</h3>
-                                            </div>
-                                        </div>
-                                        <div class="card bg-base-100 shadow-sm">
-                                            <div class="card-body p-3 items-center text-center">
-                                                <Clock class="w-6 h-6 text-primary mb-2" />
-                                                <h3 class="font-semibold text-xs">Feature</h3>
-                                            </div>
-                                        </div>
-                                        <div class="card bg-base-100 shadow-sm">
-                                            <div class="card-body p-3 items-center text-center">
-                                                <User class="w-6 h-6 text-primary mb-2" />
-                                                <h3 class="font-semibold text-xs">Feature</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            {:else if block.preview === 'stats-preview'}
-                                <div class="w-full">
-                                    <div class="stats shadow w-full">
-                                        <div class="stat">
-                                            <div class="stat-figure text-primary">
-                                                <User class="w-6 h-6" />
-                                            </div>
-                                            <div class="stat-title text-xs">Users</div>
-                                            <div class="stat-value text-primary text-xl">89K</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            {:else if block.preview === 'login-preview'}
-                                <div class="w-full max-w-xs mx-auto">
-                                    <div class="card bg-base-100 shadow-lg">
-                                        <div class="card-body p-4">
-                                            <h2 class="text-center font-bold mb-3">Login</h2>
-                                            <input type="email" placeholder="Email" class="input input-bordered input-sm mb-2" />
-                                            <input type="password" placeholder="Password" class="input input-bordered input-sm mb-3" />
-                                            <button class="btn btn-primary btn-sm w-full">Login</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            {:else}
-                                <div class="text-center text-base-content/60">
-                                    <Eye class="w-8 h-8 mx-auto mb-2" />
-                                    <p class="text-sm">Preview coming soon</p>
-                                </div>
-                            {/if}
+                <!-- Preview -->
+                <div class="bg-base-50 p-4">
+                    <div class={cn(
+                        'mx-auto transition-all duration-200 border rounded-lg overflow-hidden bg-white shadow-sm',
+                        deviceView === 'desktop' ? 'max-w-full' : '',
+                        deviceView === 'tablet' ? 'max-w-2xl' : '',
+                        deviceView === 'mobile' ? 'max-w-sm' : ''
+                    )}>
+                        <div class="transform {deviceView === 'mobile' ? 'scale-75 origin-top' : deviceView === 'tablet' ? 'scale-90 origin-top' : 'scale-100'}">
+                            <div class="min-h-96 overflow-auto">
+                                <svelte:component this={block.component} />
+                            </div>
                         </div>
-                    {:else}
-                        <!-- Code -->
-                        <CodeBlock code={block.code} language="svelte" class="text-xs" />
-                    {/if}
+                    </div>
                 </div>
             </div>
         {/each}
     </div>
 
-    <!-- Empty State -->
-    {#if filteredBlocks.length === 0}
-        <div class="text-center py-16">
-            <div class="max-w-md mx-auto">
-                <Search class="h-16 w-16 text-base-content/30 mx-auto mb-4" />
-                <h3 class="text-xl font-semibold mb-2">No blocks found</h3>
-                <p class="text-base-content/70 mb-6">
-                    Try adjusting your search or filter criteria.
-                </p>
-                <button
-                    on:click={() => { searchQuery = ''; selectedCategory = 'all'; }}
-                    class="btn btn-outline"
-                >
-                    Clear Filters
-                </button>
-            </div>
+    <!-- Search and Browse More -->
+    <div class="max-w-6xl mx-auto mt-16 text-center space-y-4">
+        <div class="flex justify-center items-center space-x-4">
+            <input 
+                type="text" 
+                placeholder="Search blocks..." 
+                class="input input-bordered w-full max-w-xs"
+                bind:value={searchQuery}
+            />
+            <button 
+                class="btn btn-ghost"
+                on:click={() => { searchQuery = ''; selectedCategory = 'featured'; }}
+            >
+                Clear
+            </button>
         </div>
-    {/if}
-
-    <!-- Getting Started -->
-    <div class="mt-16 max-w-4xl mx-auto">
-        <div class="card bg-gradient-to-r from-primary/5 to-secondary/5 border-primary/20">
-            <div class="card-body">
-                <h2 class="card-title text-2xl mb-4">Getting Started with Blocks</h2>
-                <div class="grid md:grid-cols-3 gap-6">
-                    <div class="text-center">
-                        <div class="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mx-auto mb-3">
-                            <Copy class="w-6 h-6" />
-                        </div>
-                        <h3 class="font-semibold mb-2">1. Copy Code</h3>
-                        <p class="text-sm text-base-content/70">
-                            Browse blocks and copy the code that fits your needs
-                        </p>
-                    </div>
-                    <div class="text-center">
-                        <div class="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mx-auto mb-3">
-                            <Code class="w-6 h-6" />
-                        </div>
-                        <h3 class="font-semibold mb-2">2. Customize</h3>
-                        <p class="text-sm text-base-content/70">
-                            Modify the block to match your design and content
-                        </p>
-                    </div>
-                    <div class="text-center">
-                        <div class="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mx-auto mb-3">
-                            <Star class="w-6 h-6" />
-                        </div>
-                        <h3 class="font-semibold mb-2">3. Ship</h3>
-                        <p class="text-sm text-base-content/70">
-                            Deploy your beautiful interface in minutes
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <p class="text-sm text-base-content/70">
+            All blocks are responsive and work seamlessly across devices. 
+            Copy the install command or view the full screen version.
+        </p>
     </div>
 </div>

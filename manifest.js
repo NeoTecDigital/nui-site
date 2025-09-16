@@ -1,4 +1,4 @@
 export default {
-    name: 'typescript-tailwind',
-    description: 'A Routify starter template with TypeScript and TailwindCSS',
+    name: 'nui-site',
+    description: 'Official documentation and showcase site for NUI components with clean SPA routing',
 }

@@ -1,32 +1,104 @@
 <script lang="ts">
-    import { BarChart3, LineChart, PieChart, TrendingUp, Activity, DollarSign } from 'lucide-svelte';
+    import { 
+        BarChart3, LineChart, PieChart, TrendingUp, Activity, DollarSign,
+        Copy, ExternalLink, RefreshCw, Monitor, Tablet, Smartphone,
+        ChevronDown
+    } from 'lucide-svelte';
     import CodeBlock from '$lib/components/CodeBlock.svelte';
     import ComponentShowcase from '$lib/components/ComponentShowcase.svelte';
+    import { cn } from '$lib/utils/index.js';
 
-    const chartTypes = [
+    let selectedTheme = 'default';
+    let selectedCategory = 'area';
+    let deviceView = 'desktop';
+
+    const themes = [
+        { id: 'default', name: 'Default' },
+        { id: 'dark', name: 'Dark' },
+        { id: 'modern', name: 'Modern' },
+        { id: 'minimal', name: 'Minimal' }
+    ];
+
+    const categories = [
+        { id: 'area', name: 'Area Charts', href: '/charts/area' },
+        { id: 'bar', name: 'Bar Charts', href: '/charts/bar' },
+        { id: 'line', name: 'Line Charts', href: '/charts/line' },
+        { id: 'pie', name: 'Pie Charts', href: '/charts/pie' },
+        { id: 'radar', name: 'Radar Charts', href: '/charts/radar' },
+        { id: 'radial', name: 'Radial Charts', href: '/charts/radial' },
+        { id: 'tooltip', name: 'Tooltips', href: '/charts/tooltip' }
+    ];
+
+    const areaCharts = [
         {
-            icon: BarChart3,
-            title: 'Bar Charts',
-            description: 'Perfect for comparing categories and showing data distributions',
-            example: 'Sales by region, survey responses, population by age groups'
+            id: 'area-interactive',
+            name: 'Area Chart - Interactive',
+            description: 'Showing total visitors for the last 3 months',
+            code: 'npx @nui/cli add area-interactive',
+            preview: '/charts/area-interactive'
         },
         {
-            icon: LineChart,
-            title: 'Line Charts',
-            description: 'Ideal for showing trends and changes over time',
-            example: 'Stock prices, website traffic, temperature changes'
+            id: 'area-default',
+            name: 'Area Chart',
+            description: 'Showing total visitors for the last 6 months',
+            code: 'npx @nui/cli add area-default',
+            preview: '/charts/area-default'
         },
         {
-            icon: PieChart,
-            title: 'Pie Charts',
-            description: 'Great for showing proportions and percentages',
-            example: 'Market share, budget allocation, demographic breakdown'
+            id: 'area-linear',
+            name: 'Area Chart - Linear',
+            description: 'Showing total visitors for the last 6 months',
+            code: 'npx @nui/cli add area-linear',
+            preview: '/charts/area-linear'
         },
         {
-            icon: Activity,
-            title: 'Area Charts',
-            description: 'Shows volume and cumulative data over time',
-            example: 'Revenue growth, user acquisition, inventory levels'
+            id: 'area-step',
+            name: 'Area Chart - Step',
+            description: 'Showing total visitors for the last 6 months',
+            code: 'npx @nui/cli add area-step',
+            preview: '/charts/area-step'
+        },
+        {
+            id: 'area-legend',
+            name: 'Area Chart - Legend',
+            description: 'Showing total visitors for the last 6 months',
+            code: 'npx @nui/cli add area-legend',
+            preview: '/charts/area-legend'
+        },
+        {
+            id: 'area-stacked',
+            name: 'Area Chart - Stacked',
+            description: 'Showing total visitors for the last 6 months',
+            code: 'npx @nui/cli add area-stacked',
+            preview: '/charts/area-stacked'
+        },
+        {
+            id: 'area-stacked-expand',
+            name: 'Area Chart - Stacked Expanded',
+            description: 'Showing total visitors for the last 6 months',
+            code: 'npx @nui/cli add area-stacked-expand',
+            preview: '/charts/area-stacked-expand'
+        },
+        {
+            id: 'area-icons',
+            name: 'Area Chart - Icons',
+            description: 'Showing total visitors for the last 6 months',
+            code: 'npx @nui/cli add area-icons',
+            preview: '/charts/area-icons'
+        },
+        {
+            id: 'area-gradient',
+            name: 'Area Chart - Gradient',
+            description: 'Showing total visitors for the last 6 months',
+            code: 'npx @nui/cli add area-gradient',
+            preview: '/charts/area-gradient'
+        },
+        {
+            id: 'area-axes',
+            name: 'Area Chart - Axes',
+            description: 'Showing total visitors for the last 6 months',
+            code: 'npx @nui/cli add area-axes',
+            preview: '/charts/area-axes'
         }
     ];
 
@@ -91,189 +163,105 @@
 
 <div class="container mx-auto px-4 py-8">
     <!-- Header -->
-    <div class="max-w-4xl mb-12">
-        <div class="flex items-center justify-between mb-6">
-            <div>
-                <h1 class="text-4xl font-bold mb-2">Charts</h1>
-                <p class="text-xl text-base-content/70">
-                    Beautiful, responsive charts and data visualization components.
-                </p>
-            </div>
-            <div class="flex items-center space-x-2">
-                <span class="badge badge-warning">Coming Soon</span>
-            </div>
+    <div class="max-w-6xl mx-auto mb-12">
+        <h1 class="text-4xl font-bold mb-4">Beautiful Charts & Graphs</h1>
+        <p class="text-xl text-base-content/70 mb-8">
+            A collection of ready-to-use chart components built with LayerChart. From basic charts to rich data displays, copy and paste into your apps.
+        </p>
+        <div class="flex space-x-4">
+            <a href="#charts" class="btn btn-primary">Browse Charts</a>
+            <a href="/docs/components/chart" class="btn btn-outline">Documentation</a>
         </div>
+    </div>
 
-        <!-- Installation -->
-        <div class="alert mb-8">
-            <div class="flex-1">
-                <h3 class="font-semibold mb-2">Installation</h3>
-                <CodeBlock code="npx @nui/cli add charts" language="bash" copyable={true} />
+    <!-- Category Navigation -->
+    <div class="max-w-6xl mx-auto mb-8" id="charts">
+        <div class="flex flex-wrap gap-2 mb-4">
+            {#each categories as category}
+                <a href="{category.href}#charts" class={cn(
+                    'btn btn-sm',
+                    selectedCategory === category.id ? 'btn-primary' : 'btn-ghost'
+                )}>
+                    {category.name}
+                </a>
+            {/each}
+        </div>
+        
+        <!-- Theme Selector -->
+        <div class="flex items-center space-x-4">
+            <span class="text-sm font-medium">Theme</span>
+            <div class="dropdown">
+                <button class="btn btn-sm btn-outline">
+                    Theme: {themes.find(t => t.id === selectedTheme)?.name}
+                    <ChevronDown class="w-4 h-4 ml-2" />
+                </button>
+                <ul class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                    {#each themes as theme}
+                        <li>
+                            <button 
+                                class={cn(theme.id === selectedTheme ? 'active' : '')}
+                                on:click={() => selectedTheme = theme.id}
+                            >
+                                {theme.name}
+                            </button>
+                        </li>
+                    {/each}
+                </ul>
             </div>
         </div>
     </div>
 
-    <!-- Chart Types Overview -->
-    <div class="max-w-6xl mb-16">
-        <h2 class="text-2xl font-bold mb-8">Chart Types</h2>
-        <div class="grid md:grid-cols-2 gap-6">
-            {#each chartTypes as chart}
-                <div class="card bg-base-100 shadow-sm border">
-                    <div class="card-body">
-                        <div class="flex items-start space-x-4">
-                            <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                                <svelte:component this={chart.icon} class="h-6 w-6" />
+    <!-- Area Charts Section -->
+    <div class="max-w-7xl mx-auto mb-16">
+        <h2 class="text-3xl font-bold mb-8">Area Charts</h2>
+        
+        <div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
+            {#each areaCharts as chart}
+                <div class="bg-base-100 rounded-lg border">
+                    <!-- Chart Header -->
+                    <div class="p-4 border-b">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <Activity class="w-4 h-4" />
+                                <span class="text-sm font-medium">Chart</span>
                             </div>
-                            <div class="flex-1">
-                                <h3 class="card-title text-lg">{chart.title}</h3>
-                                <p class="text-base-content/70 mb-2">{chart.description}</p>
-                                <p class="text-sm text-base-content/60">{chart.example}</p>
+                            <div class="flex items-center space-x-2">
+                                <button class="btn btn-ghost btn-xs">
+                                    <Copy class="w-3 h-3 mr-1" />
+                                    Copy
+                                </button>
+                                <div class="h-3 w-px bg-border"></div>
+                                <button class="btn btn-ghost btn-xs">View Code</button>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart Content -->
+                    <div class="p-4">
+                        <div class="mb-4">
+                            <h3 class="font-semibold text-lg">{chart.name}</h3>
+                            <p class="text-sm text-base-content/70">{chart.description}</p>
+                        </div>
+                        
+                        <!-- Chart Preview -->
+                        <div class="bg-base-50 rounded border h-64 flex items-center justify-center">
+                            <div class="text-center">
+                                <Activity class="w-12 h-12 text-primary mx-auto mb-2" />
+                                <p class="text-sm text-base-content/70">Chart preview</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Footer with trend info -->
+                        <div class="mt-4 pt-4 border-t">
+                            <div class="flex items-center space-x-2">
+                                <TrendingUp class="w-4 h-4 text-success" />
+                                <span class="text-sm">Trending up by 5.2% this month</span>
+                            </div>
+                            <p class="text-xs text-base-content/60 mt-1">January - June 2024</p>
                         </div>
                     </div>
                 </div>
             {/each}
-        </div>
-    </div>
-
-    <!-- Quick Start -->
-    <div class="max-w-4xl mb-16">
-        <ComponentShowcase 
-            title="Quick Start" 
-            description="Get started with charts in just a few lines of code"
-            code={quickStartCode}
-        >
-            <div class="flex items-center justify-center p-8 bg-base-200 rounded-lg">
-                <div class="text-center">
-                    <TrendingUp class="w-16 h-16 text-primary mx-auto mb-4" />
-                    <p class="text-base-content/70">Chart preview will appear here</p>
-                </div>
-            </div>
-        </ComponentShowcase>
-    </div>
-
-    <!-- Chart Examples -->
-    <div class="max-w-4xl mb-16">
-        <h2 class="text-2xl font-bold mb-8">Examples</h2>
-        
-        <div class="space-y-12">
-            <!-- Bar Chart Example -->
-            <ComponentShowcase 
-                title="Bar Chart" 
-                description="Compare values across different categories"
-                code={barChartCode}
-            >
-                <div class="bg-base-100 p-6 rounded-lg border">
-                    <h4 class="font-semibold mb-4">Monthly Sales Performance</h4>
-                    <div class="flex items-end space-x-2 h-32">
-                        {#each sampleData as item, i}
-                            <div class="flex flex-col items-center flex-1">
-                                <div 
-                                    class="w-full bg-primary rounded-t"
-                                    style="height: {(item.sales / 4000) * 100}%"
-                                ></div>
-                                <span class="text-xs mt-2">{item.name}</span>
-                            </div>
-                        {/each}
-                    </div>
-                    <div class="flex items-center justify-between mt-4 text-sm text-base-content/70">
-                        <span>0</span>
-                        <span>4000</span>
-                    </div>
-                </div>
-            </ComponentShowcase>
-
-            <!-- Line Chart Example -->
-            <ComponentShowcase 
-                title="Line Chart" 
-                description="Show trends and changes over time"
-                code={lineChartCode}
-            >
-                <div class="bg-base-100 p-6 rounded-lg border">
-                    <h4 class="font-semibold mb-4">Website Traffic Trend</h4>
-                    <div class="relative h-32 flex items-end">
-                        <!-- Simple line chart visualization -->
-                        <svg viewBox="0 0 300 100" class="w-full h-full">
-                            <polyline
-                                fill="none"
-                                stroke="oklch(var(--p))"
-                                stroke-width="2"
-                                points="0,60 50,80 100,20 150,40 200,15 250,35 300,25"
-                            />
-                            <!-- Data points -->
-                            {#each [0, 50, 100, 150, 200, 250, 300] as x, i}
-                                <circle 
-                                    cx={x} 
-                                    cy={[60, 80, 20, 40, 15, 35, 25][i]} 
-                                    r="3" 
-                                    fill="oklch(var(--p))"
-                                />
-                            {/each}
-                        </svg>
-                    </div>
-                    <div class="flex justify-between mt-4 text-sm text-base-content/70">
-                        {#each sampleData as item}
-                            <span>{item.name}</span>
-                        {/each}
-                    </div>
-                </div>
-            </ComponentShowcase>
-        </div>
-    </div>
-
-    <!-- Features -->
-    <div class="max-w-4xl mb-16">
-        <h2 class="text-2xl font-bold mb-8">Features</h2>
-        <div class="grid md:grid-cols-2 gap-6">
-            <div class="space-y-4">
-                <div class="flex items-center space-x-3">
-                    <div class="w-2 h-2 bg-success rounded-full"></div>
-                    <span>Responsive design</span>
-                </div>
-                <div class="flex items-center space-x-3">
-                    <div class="w-2 h-2 bg-success rounded-full"></div>
-                    <span>Theme integration</span>
-                </div>
-                <div class="flex items-center space-x-3">
-                    <div class="w-2 h-2 bg-success rounded-full"></div>
-                    <span>Accessible by default</span>
-                </div>
-                <div class="flex items-center space-x-3">
-                    <div class="w-2 h-2 bg-success rounded-full"></div>
-                    <span>TypeScript support</span>
-                </div>
-            </div>
-            <div class="space-y-4">
-                <div class="flex items-center space-x-3">
-                    <div class="w-2 h-2 bg-success rounded-full"></div>
-                    <span>Customizable colors</span>
-                </div>
-                <div class="flex items-center space-x-3">
-                    <div class="w-2 h-2 bg-success rounded-full"></div>
-                    <span>Animation support</span>
-                </div>
-                <div class="flex items-center space-x-3">
-                    <div class="w-2 h-2 bg-success rounded-full"></div>
-                    <span>Export functionality</span>
-                </div>
-                <div class="flex items-center space-x-3">
-                    <div class="w-2 h-2 bg-success rounded-full"></div>
-                    <span>Real-time updates</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Coming Soon -->
-    <div class="max-w-4xl">
-        <div class="alert alert-info">
-            <div class="flex-1">
-                <h3 class="font-semibold mb-2">Coming Soon</h3>
-                <p class="text-sm">
-                    Chart components are currently in development. Stay tuned for powerful data visualization 
-                    capabilities with seamless theme integration and extensive customization options.
-                </p>
-            </div>
         </div>
     </div>
 </div>

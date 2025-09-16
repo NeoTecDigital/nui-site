@@ -1,17 +1,17 @@
 <script lang="ts">
-    import { theme, themes } from '$lib/stores/theme.js';
+    import { theme, themes, type Theme } from '$lib/stores/theme';
     import { Palette, Download, Sun, Moon, Sparkles } from 'lucide-svelte';
     import CodeBlock from '$lib/components/CodeBlock.svelte';
     import { cn } from '$lib/utils/index.js';
 
     let selectedTheme = $theme;
 
-    function previewTheme(themeName: string) {
+    function previewTheme(themeName: Theme) {
         selectedTheme = themeName;
     }
 
-    function applyTheme(themeName: string) {
-        theme.set(themeName as any);
+    function applyTheme(themeName: Theme) {
+        theme.set(themeName);
         selectedTheme = themeName;
     }
 
